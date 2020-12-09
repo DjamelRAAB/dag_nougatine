@@ -26,12 +26,12 @@ dag = DAG ( 'dag_groupe6',
 with dag:
     ls = BashOperator(
         task_id = "ls",
-        bash_command = "ls /root/airflow/dags",
+        bash_command = "ls /root/airflow/dags/dag_nougatine",
     ) 
 
     hdfs = BashOperator(
         task_id = "hdfs",
-        bash_command = "hdfs dfs -ls",
+        bash_command = "hdfs dfs -ls /",
     ) 
 
 
