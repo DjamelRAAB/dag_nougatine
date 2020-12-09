@@ -25,10 +25,16 @@ dag = DAG ( 'dag_groupe6',
 
 with dag:
 
-    install = BashOperator(
-        task_id = "install",
-        bash_command = "pip install /usr/local/airflow/dags/dag_nougatine/.",
+    ls = BashOperator(
+        task_id = "ls",
+        bash_command = "ls /usr/local/airflow/dags/",
     ) 
+
+
+    # install = BashOperator(
+    #     task_id = "install",
+    #     bash_command = "pip install /usr/local/airflow/dags/dag_nougatine/.",
+    # ) 
 
     # mkdir = BashOperator(
     #     task_id = "mkdir",
@@ -50,4 +56,4 @@ with dag:
     
 #git echo_hello_world >>  install >> python_hello_world >> 
 #mkdir >> get_data >> ls 
-install
+ls
