@@ -66,14 +66,9 @@ with dag:
     #     bash_command = "hdfs dfs -rm -skipTrash  /user/iabd2_group6/app/*.py && hdfs dfs -moveFromLocal /root/airflow/dags/dag_nougatine/src_app/*.py /user/iabd2_group6/app/",
     # ) 
 
-    # submit_t1 = BashOperator(
-    #     task_id = "submit_t1",
-    #     bash_command = "spark-submit --master yarn --deploy-mode cluster hdfs://d271ee89-3c06-4d40-b9d6-d3c1d65feb57.priv.instances.scw.cloud:8020/user/iabd2_group6/app/collect_from_spotify.py",
-    # ) 
-
-    ls = BashOperator(
-        task_id = "ls",
-        bash_command = "ls /etc/hadoop",
+    submit_t1 = BashOperator(
+        task_id = "submit_t1",
+        bash_command = "export HADOOP_CONF_DIR=/etc/hadoop/conf && spark-submit --master yarn --deploy-mode cluster hdfs://d271ee89-3c06-4d40-b9d6-d3c1d65feb57.priv.instances.scw.cloud:8020/user/iabd2_group6/app/collect_from_spotify.py",
     ) 
 
 #[install, mkdir] >> get_data >> mkdir_dist >> [put_data_to_hdfs, put_src_to_hdfs] >> clean >> submit_t1 
