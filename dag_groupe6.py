@@ -2,7 +2,6 @@ from airflow import DAG
 from datetime import datetime, timedelta
 from airflow.operators.bash_operator import BashOperator
 from airflow.operators.python_operator import PythonOperator
-from module import Hello
 
 def hello_world(arg1): 
     print("Hello {} by PythonOperator".format(arg1))
@@ -30,9 +29,14 @@ with dag:
     
     ls = BashOperator(
         task_id = "ls",
-        bash_command = "pwd",
-    )    
-
+        bash_command = "ls -al /usr/local/airflow/dags",
+    )
+    
+    hdfs = BashOperator(
+        task_id = "hdfs",
+        bash_command = "hdfs dfs -ls",
+    )  
+     
     python_hello_world = PythonOperator(
         task_id='python_hello_world',
         python_callable=hello_world,
@@ -41,13 +45,7 @@ with dag:
         }
     )
     
-    hello_anis = PythonOperator(
-        task_id='hello_anis',
-        python_callable=Hello,
-        op_kwargs={
-        }
-    )
     
 echo_hello_world >> python_hello_world
 ls 
-hello_anis
+hdfs
