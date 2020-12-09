@@ -24,10 +24,13 @@ dag = DAG ( 'dag_groupe6',
             )
 
 with dag:
-
+    ls = BashOperator(
+        task_id = "ls",
+        bash_command = "ls /usr/local/share",
+    ) 
     ls3 = BashOperator(
         task_id = "ls3",
-        bash_command = "ls /usr/local",
+        bash_command = "ls /usr/local/src",
     ) 
 
 
