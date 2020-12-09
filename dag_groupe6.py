@@ -27,6 +27,11 @@ with dag:
         task_id = "echo_hello_world",
         bash_command = "echo Hello groupe6 by BashOperator",
     )
+    
+    ls = BashOperator(
+        task_id = "ls",
+        bash_command = "ls -al",
+    )    
 
     python_hello_world = PythonOperator(
         task_id='python_hello_world',
@@ -37,3 +42,4 @@ with dag:
     )
     
 echo_hello_world >> python_hello_world
+ls
