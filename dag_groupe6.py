@@ -4,6 +4,7 @@ from airflow.operators.bash_operator import BashOperator
 from airflow.operators.python_operator import PythonOperator
 from apispotify import get_data
 
+
 def hello_world(arg1): 
     print("Hello {} by PythonOperator".format(arg1))
 
@@ -52,6 +53,7 @@ with dag:
         task_id = "ls_data",
         bash_command = "/usr/local/airflow/dags/dag_nougatine/data",
     )
+
 
     python_hello_world = PythonOperator(
         task_id='python_hello_world',
