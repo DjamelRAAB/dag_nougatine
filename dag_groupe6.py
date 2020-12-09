@@ -63,13 +63,13 @@ with dag:
         }
     )
     
-    get_data = PythonOperator(
-        task_id='get_data',
-        python_callable=get_data.launch,
-        op_kwargs={
-            'path':"/usr/local/airflow/dags/dag_nougatine/data"
-        }
-    )
+    # get_data = PythonOperator(
+    #     task_id='get_data',
+    #     python_callable=get_data.launch,
+    #     op_kwargs={
+    #         'path':"/usr/local/airflow/dags/dag_nougatine/data"
+    #     }
+    # )
     
-echo_hello_world >> venv >> activate >> install >> python_hello_world >> get_data >> deactivate >> ls_data
+echo_hello_world >> venv >> activate >> install >> python_hello_world >> deactivate
 
