@@ -29,13 +29,8 @@ with dag:
     
     ls = BashOperator(
         task_id = "ls",
-        bash_command = "ls -al /usr/local/airflow/dags",
+        bash_command = "ls -al /usr/local/airflow/dags/dag_nougatine",
     )
-    
-    hdfs = BashOperator(
-        task_id = "hdfs",
-        bash_command = "hdfs dfs -ls",
-    )  
      
     python_hello_world = PythonOperator(
         task_id='python_hello_world',
@@ -48,4 +43,3 @@ with dag:
     
 echo_hello_world >> python_hello_world
 ls 
-hdfs
