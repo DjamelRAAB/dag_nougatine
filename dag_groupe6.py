@@ -34,15 +34,20 @@ with dag:
         task_id = "mkdir",
         bash_command = "mkdir /tmp/data_groupe6",
     ) 
+
+    ls = BashOperator(
+        task_id = "ls",
+        bash_command = "ls -al /tmp/data_groupe6",
+    )
     
-    # get_data = PythonOperator(
-    #     task_id='get_data',
-    #     python_callable=get_data.launch,
-    #     op_kwargs={
-    #         'path':"/usr/local/airflow/dags/dag_nougatine/data"
-    #     }
-    #)
+    get_data = PythonOperator(
+        task_id='get_data',
+        python_callable=get_data.launch,
+        op_kwargs={
+            'path':"/tmp/data_groupe6"
+        }
+    )
     
 #git echo_hello_world >>  install >> python_hello_world >> 
-mkdir
+mkdir >> get_data >> ls 
 
