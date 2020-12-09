@@ -5,7 +5,7 @@ from airflow.operators.python_operator import PythonOperator
 
 
 def hello_world(arg1): 
-    print("Hello {} by BashOperator".format(arg1))
+    print("Hello {} by PythonOperator".format(arg1))
 
 default_args = {
     'owner':"Group6",
