@@ -42,7 +42,7 @@ with dag:
     
     put_to_hdfs = BashOperator(
         task_id = "put_to_hdfs",
-        bash_command = "hdfs dfs -moveFromLocal /tmp/data_groupe6/*.csv /user/iabd2_group6/input/",
+        bash_command = "hdfs dfs -moveFromLocal /tmp/data_groupe6/*.csv /user/iabd2_group6/data/",
     ) 
 
     # get_data = PythonOperator(
