@@ -2,7 +2,7 @@ from airflow import DAG
 from datetime import datetime, timedelta
 from airflow.operators.bash_operator import BashOperator
 from airflow.operators.python_operator import PythonOperator
-from apispotify import get_data
+#from apispotify import get_data
 
 
 def hello_world(arg1): 
