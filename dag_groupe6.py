@@ -46,10 +46,10 @@ with dag:
     #     }
     # )
 
-    clean = BashOperator(
-        task_id = "clean",
-        bash_command = "rm -rf /tmp/data_groupe6",
-    )
+    # clean = BashOperator(
+    #     task_id = "clean",
+    #     bash_command = "rm -rf /tmp/data_groupe6",
+    # )
     
     # mkdir_dist = BashOperator(
     #     task_id = "mkdir_dist",
@@ -61,15 +61,14 @@ with dag:
     #     bash_command = "hdfs dfs -moveFromLocal /tmp/data_groupe6/*.csv /user/iabd2_group6/data/{}".format(current_time),
     # ) 
 
-    put_src_to_hdfs = BashOperator(
-        task_id = "put_src_to_hdfs",
-        bash_command = "hdfs dfs -rm -skipTrash  /user/iabd2_group6/app/*.py && hdfs dfs -moveFromLocal /root/airflow/dags/dag_nougatine/src_app/*.py /user/iabd2_group6/app/",
-    ) 
+    # put_src_to_hdfs = BashOperator(
+    #     task_id = "put_src_to_hdfs",
+    #     bash_command = "hdfs dfs -rm -skipTrash  /user/iabd2_group6/app/*.py && hdfs dfs -moveFromLocal /root/airflow/dags/dag_nougatine/src_app/*.py /user/iabd2_group6/app/",
+    # ) 
 
     submit_t1 = BashOperator(
         task_id = "submit_t1",
-        bash_command = "spark-submit --master yarn --deploy-mode cluster hdfs://d271ee89-3c06-4d40-b9d6-d3c1d65feb57.priv.instances.scw.cloud:8020/user/iabd2_group6/app/collect_from_spotify.py",
+        bash_command = "spark-submit --master d271ee89-3c06-4d40-b9d6-d3c1d65feb57.priv.instances.scw.cloud:8032 --deploy-mode cluster hdfs://d271ee89-3c06-4d40-b9d6-d3c1d65feb57.priv.instances.scw.cloud:8020/user/iabd2_group6/app/collect_from_spotify.py",
     ) 
 
-#[install, mkdir] >> get_data >> mkdir_dist >> [put_data_to_hdfs, 
-put_src_to_hdfs >> clean >> submit_t1 
+#[install, mkdir] >> get_data >> mkdir_dist >> [put_data_to_hdfs, put_src_to_hdfs] >> clean >> submit_t1 
