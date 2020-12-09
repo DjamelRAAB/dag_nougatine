@@ -24,32 +24,25 @@ dag = DAG ( 'dag_groupe6',
             )
 
 with dag:
-    echo_hello_world = BashOperator(
-        task_id = "echo_hello_world",
-        bash_command = "echo Hello groupe6 by BashOperator",
-    )
 
-    install = BashOperator(
-        task_id = "install",
-        bash_command = "pip install /usr/local/airflow/dags/dag_nougatine/.",
+    # install = BashOperator(
+    #     task_id = "install",
+    #     bash_command = "pip install /usr/local/airflow/dags/dag_nougatine/.",
+    # ) 
+
+    ls = BashOperator(
+        task_id = "ls",
+        bash_command = "ls -al /usr/local/airflow/dags/dag_nougatine/ && ls -al /etc/hadoop/ && ls -al /tmp ",
     ) 
-
-
-    python_hello_world = PythonOperator(
-        task_id='python_hello_world',
-        python_callable=hello_world,
-        op_kwargs={
-            'arg1': "Group6"
-        }
-    )
     
-    get_data = PythonOperator(
-        task_id='get_data',
-        python_callable=get_data.launch,
-        op_kwargs={
-            'path':"/usr/local/airflow/dags/dag_nougatine/data"
-        }
-    )
+    # get_data = PythonOperator(
+    #     task_id='get_data',
+    #     python_callable=get_data.launch,
+    #     op_kwargs={
+    #         'path':"/usr/local/airflow/dags/dag_nougatine/data"
+    #     }
+    #)
     
-echo_hello_world >>  install >> python_hello_world >> get_data
+#git echo_hello_world >>  install >> python_hello_world >> 
+ls
 
