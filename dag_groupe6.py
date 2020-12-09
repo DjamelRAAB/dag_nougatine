@@ -32,7 +32,7 @@ with dag:
 
     ls = BashOperator(
         task_id = "ls",
-        bash_command = "ls -al /usr/local/airflow/dags/dag_nougatine/ && ls -al /etc/hadoop/ && ls -al /tmp ",
+        bash_command = "ls -al /usr/local/airflow/dags/dag_nougatine/ && ls -al / && ls -al /tmp ",
     ) 
     
     # get_data = PythonOperator(
