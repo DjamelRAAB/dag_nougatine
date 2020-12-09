@@ -25,18 +25,8 @@ dag = DAG ( 'dag_groupe6',
 
 with dag:
 
-    ls = BashOperator(
-        task_id = "ls",
-        bash_command = "ls / && ls /usr && ls /usr/local",
-    ) 
-
-    ls2 = BashOperator(
-        task_id = "ls2",
-        bash_command = "ls /usr",
-    ) 
-
     ls3 = BashOperator(
-        task_id = "ls2",
+        task_id = "ls3",
         bash_command = "ls /usr/local",
     ) 
 
@@ -66,4 +56,4 @@ with dag:
     
 #git echo_hello_world >>  install >> python_hello_world >> 
 #mkdir >> get_data >> ls 
-ls
+ls3
