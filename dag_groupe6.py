@@ -2,7 +2,7 @@ from airflow import DAG
 from datetime import datetime, timedelta
 from airflow.operators.bash_operator import BashOperator
 from airflow.operators.python_operator import PythonOperator
-from module import Hello
+from apispotify import get_data
 
 def hello_world(arg1): 
     print("Hello {} by PythonOperator".format(arg1))
@@ -28,26 +28,46 @@ with dag:
         bash_command = "echo Hello groupe6 by BashOperator",
     )
     
-    ls = BashOperator(
-        task_id = "ls",
-        bash_command = "pwd",
+    venv = BashOperator(
+        task_id = "venv",
+        bash_command = "python -m venv /usr/local/airflow/dags/dag_nougatine/python-venv && mkdir /usr/local/airflow/dags/dag_nougatine/data ",
     )    
+
+    activate = BashOperator(
+        task_id = "activate",
+        bash_command = "source /usr/local/airflow/dags/dag_nougatine/python-venv/bin/activate",
+    ) 
+
+    install = BashOperator(
+        task_id = "install",
+        bash_command = "pip install /usr/local/airflow/dags/dag_nougatine/.",
+    ) 
+
+    deactivate = BashOperator(
+        task_id = "deactivate",
+        bash_command = "deactivate",
+    ) 
+
+    ls_data = BashOperator(
+        task_id = "ls_data",
+        bash_command = "/usr/local/airflow/dags/dag_nougatine/data",
+    )
 
     python_hello_world = PythonOperator(
         task_id='python_hello_world',
         python_callable=hello_world,
         op_kwargs={
-            'arg1'          : "Group6"
+            'arg1': "Group6"
         }
     )
     
-    hello_anis = PythonOperator(
-        task_id='hello_anis',
-        python_callable=Hello,
+    get_data = PythonOperator(
+        task_id='get_data',
+        python_callable=get_data.launch,
         op_kwargs={
+            'path':"/usr/local/airflow/dags/dag_nougatine/data"
         }
     )
     
-echo_hello_world >> python_hello_world
-ls 
-hello_anis
+echo_hello_world >> venv >> activate >> install >> python_hello_world >> get_data >> deactivate >> ls_data
+
