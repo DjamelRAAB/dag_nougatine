@@ -24,23 +24,11 @@ dag = DAG ( 'dag_groupe6',
             )
 
 with dag:
-    ls = BashOperator(
-        task_id = "ls",
-        bash_command = "ls /root/airflow/dags/dag_nougatine",
+
+    install = BashOperator(
+        task_id = "install",
+        bash_command = "pip install /root/airflow/dags/dag_nougatine/.",
     ) 
-
-    hdfs = BashOperator(
-        task_id = "hdfs",
-        bash_command = "hdfs dfs -ls /",
-    ) 
-
-
-
-
-    # install = BashOperator(
-    #     task_id = "install",
-    #     bash_command = "pip install /usr/local/airflow/dags/dag_nougatine/.",
-    # ) 
 
     # mkdir = BashOperator(
     #     task_id = "mkdir",
@@ -62,5 +50,4 @@ with dag:
     
 #git echo_hello_world >>  install >> python_hello_world >> 
 #mkdir >> get_data >> ls 
-ls 
-hdfs
+install
