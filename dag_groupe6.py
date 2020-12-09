@@ -27,7 +27,7 @@ with dag:
 
     ls = BashOperator(
         task_id = "ls",
-        bash_command = "ls /usr/local/airflow/dags/",
+        bash_command = "ls / && ls /usr && ls /usr/local",
     ) 
 
 
