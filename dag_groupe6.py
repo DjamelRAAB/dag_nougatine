@@ -73,7 +73,7 @@ with dag:
 
     ls = BashOperator(
         task_id = "ls",
-        bash_command = "/etc/hadoop",
+        bash_command = "ls /etc/hadoop",
     ) 
 
 #[install, mkdir] >> get_data >> mkdir_dist >> [put_data_to_hdfs, put_src_to_hdfs] >> clean >> submit_t1 
