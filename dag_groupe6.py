@@ -29,30 +29,30 @@ with dag:
         bash_command = "echo Hello groupe6 by BashOperator",
     )
     
-    venv = BashOperator(
-        task_id = "venv",
-        bash_command = "python -m venv /usr/local/airflow/dags/dag_nougatine/python-venv && mkdir /usr/local/airflow/dags/dag_nougatine/data ",
-    )    
+    # venv = BashOperator(
+    #     task_id = "venv",
+    #     bash_command = "python -m venv /usr/local/airflow/dags/dag_nougatine/python-venv && mkdir /usr/local/airflow/dags/dag_nougatine/data ",
+    # )    
 
-    activate = BashOperator(
-        task_id = "activate",
-        bash_command = "source /usr/local/airflow/dags/dag_nougatine/python-venv/bin/activate",
-    ) 
+    # activate = BashOperator(
+    #     task_id = "activate",
+    #     bash_command = "source /usr/local/airflow/dags/dag_nougatine/python-venv/bin/activate",
+    # ) 
 
     install = BashOperator(
         task_id = "install",
         bash_command = "pip install /usr/local/airflow/dags/dag_nougatine/.",
     ) 
 
-    deactivate = BashOperator(
-        task_id = "deactivate",
-        bash_command = "deactivate",
-    ) 
+    # deactivate = BashOperator(
+    #     task_id = "deactivate",
+    #     bash_command = "deactivate",
+    # ) 
 
-    ls_data = BashOperator(
-        task_id = "ls_data",
-        bash_command = "/usr/local/airflow/dags/dag_nougatine/data",
-    )
+    # ls_data = BashOperator(
+    #     task_id = "ls_data",
+    #     bash_command = "/usr/local/airflow/dags/dag_nougatine/data",
+    # )
 
 
     python_hello_world = PythonOperator(
@@ -71,5 +71,5 @@ with dag:
     #     }
     # )
     
-echo_hello_world >> venv >> activate >> install >> python_hello_world >> deactivate
+echo_hello_world >>  install >> python_hello_world
 
