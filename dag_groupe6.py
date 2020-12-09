@@ -26,12 +26,9 @@ dag = DAG ( 'dag_groupe6',
 with dag:
     ls = BashOperator(
         task_id = "ls",
-        bash_command = "ls /usr/local/share",
+        bash_command = "ls /root/airflow/dags",
     ) 
-    ls3 = BashOperator(
-        task_id = "ls3",
-        bash_command = "ls /usr/local/src",
-    ) 
+
 
 
     # install = BashOperator(
@@ -59,4 +56,4 @@ with dag:
     
 #git echo_hello_world >>  install >> python_hello_world >> 
 #mkdir >> get_data >> ls 
-ls3
+ls
