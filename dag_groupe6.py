@@ -30,9 +30,9 @@ with dag:
     #     bash_command = "pip install /usr/local/airflow/dags/dag_nougatine/.",
     # ) 
 
-    ls = BashOperator(
-        task_id = "ls",
-        bash_command = "ls -al /usr/local/airflow/dags/dag_nougatine/ && ls -al / && ls -al /tmp ",
+    mkdir = BashOperator(
+        task_id = "mkdir",
+        bash_command = "mkdir /tmp/data_groupe6",
     ) 
     
     # get_data = PythonOperator(
