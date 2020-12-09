@@ -30,6 +30,16 @@ with dag:
         bash_command = "ls / && ls /usr && ls /usr/local",
     ) 
 
+    ls2 = BashOperator(
+        task_id = "ls2",
+        bash_command = "ls /usr",
+    ) 
+
+    ls3 = BashOperator(
+        task_id = "ls2",
+        bash_command = "ls /usr/local",
+    ) 
+
 
     # install = BashOperator(
     #     task_id = "install",
