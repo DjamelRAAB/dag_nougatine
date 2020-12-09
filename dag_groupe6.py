@@ -46,10 +46,10 @@ with dag:
     #     }
     # )
 
-    # clean = BashOperator(
-    #     task_id = "clean",
-    #     bash_command = "rm -rf /tmp/data_groupe6",
-    # )
+    clean = BashOperator(
+        task_id = "clean",
+        bash_command = "rm -rf /tmp/data_groupe6",
+    )
     
     # mkdir_dist = BashOperator(
     #     task_id = "mkdir_dist",
