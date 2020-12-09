@@ -25,28 +25,35 @@ dag = DAG ( 'dag_groupe6',
 
 with dag:
 
-    install = BashOperator(
-        task_id = "install",
-        bash_command = "pip install /root/airflow/dags/dag_nougatine/.",
-    ) 
+    # install = BashOperator(
+    #     task_id = "install",
+    #     bash_command = "pip install /root/airflow/dags/dag_nougatine/.",
+    # ) 
 
-    mkdir = BashOperator(
-        task_id = "mkdir",
-        bash_command = "mkdir /tmp/data_groupe6",
-    ) 
+    # mkdir = BashOperator(
+    #     task_id = "mkdir",
+    #     bash_command = "mkdir /tmp/data_groupe6",
+    # ) 
 
-    ls = BashOperator(
-        task_id = "ls",
-        bash_command = "ls -al /tmp/data_groupe6",
+    clean = BashOperator(
+        task_id = "clean",
+        bash_command = "rm -rf /tmp/data_groupe6",
     )
     
-    get_data = PythonOperator(
-        task_id='get_data',
-        python_callable=get_data.launch,
-        op_kwargs={
-            'path':"/tmp/data_groupe6"
-        }
-    )
+    put_to_hdfs = BashOperator(
+        task_id = "put_to_hdfs",
+        bash_command = "hdfs dfs -moveFromLocal /tmp/data_groupe6/*.csv /user/iabd2_group6/input/",
+    ) 
+
+    # get_data = PythonOperator(
+    #     task_id='get_data',
+    #     python_callable=get_data.launch,
+    #     op_kwargs={
+    #         'path':"/tmp/data_groupe6"
+    #     }
+    # )
     
 
-install >> mkdir >> get_data >> ls
+#install >> mkdir >> get_data >> ls
+
+put_to_hdfs >> clean
