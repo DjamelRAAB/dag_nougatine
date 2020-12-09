@@ -29,6 +29,12 @@ with dag:
         bash_command = "ls /root/airflow/dags",
     ) 
 
+    hdfs = BashOperator(
+        task_id = "hdfs",
+        bash_command = "hdfs dfs -ls",
+    ) 
+
+
 
 
     # install = BashOperator(
@@ -56,4 +62,5 @@ with dag:
     
 #git echo_hello_world >>  install >> python_hello_world >> 
 #mkdir >> get_data >> ls 
-ls
+ls 
+hdfs
