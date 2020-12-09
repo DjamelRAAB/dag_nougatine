@@ -30,7 +30,7 @@ with dag:
     
     ls = BashOperator(
         task_id = "ls",
-        bash_command = "ls -al",
+        bash_command = "pwd",
     )    
 
     python_hello_world = PythonOperator(
