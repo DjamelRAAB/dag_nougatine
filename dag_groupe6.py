@@ -2,7 +2,7 @@ from airflow import DAG
 from datetime import datetime, timedelta
 from airflow.operators.bash_operator import BashOperator
 from airflow.operators.python_operator import PythonOperator
-
+from module import Hello
 
 def hello_world(arg1): 
     print("Hello {} by PythonOperator".format(arg1))
@@ -41,5 +41,13 @@ with dag:
         }
     )
     
+    hello_anis = PythonOperator(
+        task_id='hello_anis',
+        python_callable=Hello,
+        op_kwargs={
+        }
+    )
+    
 echo_hello_world >> python_hello_world
-ls
+ls 
+hello_anis
