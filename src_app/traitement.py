@@ -5,8 +5,10 @@ import re
 
 def init_spark():
   # initialisation de la spark seesion et recuperation du spark context
+  # hdfs://d271ee89-3c06-4d40-b9d6-d3c1d65feb57.priv.instances.scw.cloud:8020/user/hive/warehouse/
+  
   try :
-    spark = SparkSession.builder.appName("collect_data").enableHiveSupport().getOrCreate()
+    spark = SparkSession.builder.appName("collect_data").config("spark.sql.warehouse.dir", "hdfs://d271ee89-3c06-4d40-b9d6-d3c1d65feb57.priv.instances.scw.cloud:8020/user/hive/warehouse/").enableHiveSupport().getOrCreate()
     sc = spark.sparkContext
   except Exception as e:
     sys.exit(1)
