@@ -46,7 +46,7 @@ with dag:
 
     clean = BashOperator(
         task_id = "clean",
-        bash_command = "rm -rf /tmp/data_groupe6/*.csv",
+        bash_command = "rm -f /tmp/data_groupe6/*.csv",
     )
     
     mkdir_dist = BashOperator(
