@@ -6,7 +6,7 @@ import re
 def init_spark():
   # initialisation de la spark seesion et recuperation du spark context
   try :
-    spark = SparkSession.builder.appName("collect_data").getOrCreate()
+    spark = SparkSession.builder.appName("collect_data").enableHiveSupport().getOrCreate()
     sc = spark.sparkContext
   except Exception as e:
     sys.exit(1)
