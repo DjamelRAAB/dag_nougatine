@@ -117,4 +117,10 @@ with dag:
     #     bash_command = "export HADOOP_CONF_DIR=/etc/hadoop/conf && export HADOOP_USER_NAME=iabd2_group6 && spark-submit --master yarn --deploy-mode cluster hdfs://d271ee89-3c06-4d40-b9d6-d3c1d65feb57.priv.instances.scw.cloud:8020/user/iabd2_group6/app/load_data_into_hive.py",
     # ) 
 
-test_submit
+
+    submit_t1 = BashOperator(
+        task_id = "submit_t1",
+        bash_command = "spark-submit --master yarn --conf master=yarn --conf deploy-mode=cluster --conf spark.yarn.appMasterEnv.HADOOP_CONF_DIR=/etc/hadoop/conf --conf spark.yarn.appMasterEnv.HADOOP_USER_NAME=iabd2_group6 --num-executors 2 --executor-cores 2 --executor-memory 512M --driver-memory 512M --name Group6-job --queue root.default hdfs://d271ee89-3c06-4d40-b9d6-d3c1d65feb57.priv.instances.scw.cloud:8020/user/iabd2_group6/app/load_data_into_hive.py",
+    ) 
+
+submit_t1
