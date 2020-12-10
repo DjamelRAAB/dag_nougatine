@@ -55,7 +55,7 @@ with dag:
     ) 
     rm_dist = BashOperator(
         task_id = "rm_dist",
-        bash_command = "hdfs dfs -rm -skipTrash /user/iabd2_group6/data/{}".format(current_time),
+        bash_command = "hdfs dfs -rm -R -skipTrash /user/iabd2_group6/data/{}".format(current_time),
     ) 
 
     put_src_to_hdfs = BashOperator(
