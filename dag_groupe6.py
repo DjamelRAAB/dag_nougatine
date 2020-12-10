@@ -81,23 +81,23 @@ with dag:
 #         bash_command = "export HADOOP_CONF_DIR=/etc/hadoop/conf && export HADOOP_USER_NAME=iabd2_group6",
 #     ) 
 
-    test_submit = SparkSubmitOperator(
-        task_id = "test_submit",
-        application='hdfs://d271ee89-3c06-4d40-b9d6-d3c1d65feb57.priv.instances.scw.cloud:8020/user/iabd2_group6/app/load_data_into_hive.py',
-        conf={
-            'master':'yarn',
-            'deploy-mode':'cluster'
-        }, 
-        executor_cores='2', 
-        executor_memory='512M', 
-        driver_memory='512M', 
-        name='Group6-job',
-        num_executors='2', 
-        env_vars={
-            'HADOOP_CONF_DIR':'/etc/hadoop/conf' ,
-            'HADOOP_USER_NAME':'iabd2_group6'
-        }
-    )
+    # test_submit = SparkSubmitOperator(
+    #     task_id = "test_submit",
+    #     application='hdfs://d271ee89-3c06-4d40-b9d6-d3c1d65feb57.priv.instances.scw.cloud:8020/user/iabd2_group6/app/load_data_into_hive.py',
+    #     conf={
+    #         'master':'yarn',
+    #         'deploy-mode':'cluster'
+    #     }, 
+    #     executor_cores='2', 
+    #     executor_memory='512M', 
+    #     driver_memory='512M', 
+    #     name='Group6-job',
+    #     num_executors='2', 
+    #     env_vars={
+    #         'HADOOP_CONF_DIR':'/etc/hadoop/conf' ,
+    #         'HADOOP_USER_NAME':'iabd2_group6'
+    #     }
+    # )
 
 # export_varsenv >> test_submit
 
