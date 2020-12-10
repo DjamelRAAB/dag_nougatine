@@ -56,6 +56,16 @@ def save_in_hive (log,spark,dataFrame,name_table,date) :
     log.error("erreur : " + str(e))
     sys.exit(1)
 
+def get_top_artist_from_top_playlist(log,df_artists_releases_full):
+    try :
+        df = df_artists_releases_full.select("name","followers","popularity","date")
+        # withColumn("followers",F.lit(int(str(re.findall(r'\d+', str(F.col("followers")))))))
+        log.info("get_top_artist_from_top_playlist .. ok")
+    except Exception as e:
+        log.error("get_top_artist_from_top_playlist ... KO")
+        log.error("erreur : " + str(e))
+        sys.exit(1)
+    return df
 
 
 def main():
@@ -66,6 +76,12 @@ def main():
   for name in list_name :
         exec('df_'+ name +' = load_csv_file(log,spark,"/user/iabd2_group6/data/'+date+'/df_'+name+'.csv")')
         exec('save_in_hive(log,spark,df_'+ name +' ,"tb_'+name+'_v1",date )')
-  
+  df_artist_up = get_top_artist_from_top_playlist(log,df_artists_releases_full).coalesce()
+  df_artist_already_up = get_top_artist_from_top_playlist(log,df_artists_featured_full).coalesce()
+
+  df_artist_up.write.csv('df_artist_up.csv')
+  df_artist_already_up.write.csv('df_artist_already_up.csv')
+
+
 if __name__ == '__main__':
   main()
