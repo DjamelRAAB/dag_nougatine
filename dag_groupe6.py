@@ -71,8 +71,13 @@ with dag:
 
 # [install, mkdir] >> get_data >> mkdir_dist >> put_data_to_hdfs >> [put_src_to_hdfs, clean] >> submit_t1 
 
-
+    mkdir = BashOperator(
+        task_id = "mkdir",
+        bash_command = "mkdir /tmp/data_groupe6",
+    ) 
     clean = BashOperator(
         task_id = "clean",
         bash_command = "rm -rf /tmp/data_groupe6",
     )
+
+mkdir >> clean
