@@ -64,67 +64,13 @@ with dag:
     #     bash_command = "hdfs dfs -rm -skipTrash  /user/iabd2_group6/app/*.py && hdfs dfs -moveFromLocal /root/airflow/dags/dag_nougatine/src_app/*.py /user/iabd2_group6/app/",
     # ) 
 
-    # submit_t1 = BashOperator(
-    #     task_id = "submit_t1",
-    #     bash_command = "export HADOOP_CONF_DIR=/etc/hadoop/conf && export HADOOP_USER_NAME=iabd2_group6 && spark-submit --master yarn --deploy-mode cluster hdfs://d271ee89-3c06-4d40-b9d6-d3c1d65feb57.priv.instances.scw.cloud:8020/user/iabd2_group6/app/load_data_into_hive.py",
-    # ) 
-
-    # submit_t1 = BashOperator(
-    #     task_id = "submit_t1",
-    #     bash_command = 'hive -e "create database iabd2_group6 ;"'
-    # ) 
-
-
-
-#         export_varsenv = BashOperator(
-#         task_id = "export_varsenv",
-#         bash_command = "export HADOOP_CONF_DIR=/etc/hadoop/conf && export HADOOP_USER_NAME=iabd2_group6",
-#     ) 
-
-    # test_submit = SparkSubmitOperator(
-    #     task_id = "test_submit",
-    #     application='hdfs://d271ee89-3c06-4d40-b9d6-d3c1d65feb57.priv.instances.scw.cloud:8020/user/iabd2_group6/app/load_data_into_hive.py',
-    #     conf={
-    #         'master':'yarn',
-    #         'deploy-mode':'cluster'
-    #     }, 
-    #     executor_cores='2', 
-    #     executor_memory='512M', 
-    #     driver_memory='512M', 
-    #     name='Group6-job',
-    #     num_executors='2', 
-    #     env_vars={
-    #         'HADOOP_CONF_DIR':'/etc/hadoop/conf' ,
-    #         'HADOOP_USER_NAME':'iabd2_group6'
-    #     }
-    # )
-
-# export_varsenv >> test_submit
+    submit_t1 = BashOperator(
+        task_id = "submit_t1",
+        bash_command = "export HADOOP_CONF_DIR=/etc/hadoop/conf && export HADOOP_USER_NAME=iabd2_group6 && spark-submit --master yarn --deploy-mode cluster hdfs://d271ee89-3c06-4d40-b9d6-d3c1d65feb57.priv.instances.scw.cloud:8020/user/iabd2_group6/app/load_data_into_hive.py",
+    ) 
 
 
 # [install, mkdir] >> get_data >> mkdir_dist >> [put_data_to_hdfs, put_src_to_hdfs] >> clean >> submit_t1 
 
-#put_src_to_hdfs >> submit_t1
-#douka 9
 
-    # put_src_to_hdfs = BashOperator(
-    #     task_id = "put_src_to_hdfs",
-    #     bash_command = "hdfs dfs -moveFromLocal /root/airflow/dags/dag_nougatine/src_app/*.py /user/iabd2_group6/app/",
-    # ) 
 
-    # submit_t1 = BashOperator(
-    #     task_id = "submit_t1",
-    #     bash_command = "export HADOOP_CONF_DIR=/etc/hadoop/conf && export HADOOP_USER_NAME=iabd2_group6 && spark-submit --master yarn --deploy-mode cluster hdfs://d271ee89-3c06-4d40-b9d6-d3c1d65feb57.priv.instances.scw.cloud:8020/user/iabd2_group6/app/load_data_into_hive.py",
-    # ) 
-
-    export_varsenv = BashOperator(
-        task_id = "export_varsenv",
-        bash_command = "export HADOOP_CONF_DIR=/etc/hadoop/conf && export HADOOP_USER_NAME=iabd2_group6",
-    ) 
-
-    submit_t1 = BashOperator(
-        task_id = "submit_t1",
-        bash_command = "spark-submit --master yarn --conf master=yarn --conf deploy-mode=cluster --conf spark.yarn.appMasterEnv.HADOOP_CONF_DIR=/etc/hadoop/conf --conf spark.yarn.appMasterEnv.HADOOP_USER_NAME=iabd2_group6 --num-executors 2 --executor-cores 2 --executor-memory 512M --driver-memory 512M --name Group6-job --queue root.default hdfs://d271ee89-3c06-4d40-b9d6-d3c1d65feb57.priv.instances.scw.cloud:8020/user/iabd2_group6/app/load_data_into_hive.py",
-    ) 
-
-export_varsenv >> submit_t1
