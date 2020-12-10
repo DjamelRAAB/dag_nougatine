@@ -65,7 +65,7 @@ def main():
   list_name = ["albums_releases_full","artists_releases_full","tracks_featured_full","tracks_releases_full","playlists_featured_full","artists_featured_full"]
   for name in list_name :
         exec('df_'+ name +' = load_csv_file(log,spark,"/user/iabd2_group6/data/'+date+'/df_'+name+'.csv")')
-        exec('save_in_hive(log,spark,df_'+ name +' ,"tb_'+name+'",date )')
+        exec('save_in_hive(log,spark,df_'+ name +' ,"tb_'+name+'_v1",date )')
   
 if __name__ == '__main__':
   main()
