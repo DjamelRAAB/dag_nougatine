@@ -31,11 +31,6 @@ with dag:
         bash_command = "pip install /root/airflow/dags/dag_nougatine/.",
     ) 
 
-    mkdir = BashOperator(
-        task_id = "mkdir",
-        bash_command = "mkdir /tmp/data_groupe6",
-    ) 
-
     get_data = PythonOperator(
         task_id='get_data',
         python_callable=get_data.launch,
