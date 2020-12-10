@@ -59,8 +59,8 @@ with dag:
         bash_command = "hdfs dfs -moveFromLocal /tmp/data_groupe6/*.csv /user/iabd2_group6/data/{}".format(current_time),
     ) 
 
-    rm_src_to_hdfs = BashOperator(
-        task_id = "rm_src_to_hdfs",
+    rm_put_src_to_hdfs = BashOperator(
+        task_id = "rm_put_src_to_hdfs",
         bash_command = "hdfs dfs -rm -skipTrash  /user/iabd2_group6/app/*.py",
     ) 
 
@@ -75,5 +75,5 @@ with dag:
         bash_command = "export HADOOP_CONF_DIR=/etc/hadoop/conf && export HADOOP_USER_NAME=iabd2_group6 && spark-submit --master yarn --deploy-mode cluster hdfs://d271ee89-3c06-4d40-b9d6-d3c1d65feb57.priv.instances.scw.cloud:8020/user/iabd2_group6/app/load_data_into_hive.py",
     ) 
 
-[install, mkdir_tmp] >> get_data >> mkdir_dist >> put_data_to_hdfs >> rm_src_to_hdfs >> [put_src_to_hdfs, clean] >> submit_t1 
-rm_src_to_hdfs >> [put_src_to_hdfs, clean] >> submit_t1
+[install, mkdir_tmp] >> get_data >> mkdir_dist >> put_data_to_hdfs >> rm_put_src_to_hdfs >> clean >> submit_t1 
+rm_put_src_to_hdfs >> put_src_to_hdf >> clean >> submit_t1
