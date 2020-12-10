@@ -59,10 +59,10 @@ with dag:
     #     bash_command = "hdfs dfs -moveFromLocal /tmp/data_groupe6/*.csv /user/iabd2_group6/data/{}".format(current_time),
     # ) 
 
-    # put_src_to_hdfs = BashOperator(
-    #     task_id = "put_src_to_hdfs",
-    #     bash_command = "hdfs dfs -rm -skipTrash  /user/iabd2_group6/app/*.py && hdfs dfs -moveFromLocal /root/airflow/dags/dag_nougatine/src_app/*.py /user/iabd2_group6/app/",
-    # ) 
+    put_src_to_hdfs = BashOperator(
+        task_id = "put_src_to_hdfs",
+        bash_command = "hdfs dfs -rm -skipTrash  /user/iabd2_group6/app/*.py && hdfs dfs -moveFromLocal /root/airflow/dags/dag_nougatine/src_app/*.py /user/iabd2_group6/app/",
+    ) 
 
     submit_t1 = BashOperator(
         task_id = "submit_t1",
@@ -77,5 +77,5 @@ with dag:
 
 # [install, mkdir] >> get_data >> mkdir_dist >> [put_data_to_hdfs, put_src_to_hdfs] >> clean >> submit_t1 
 
-submit_t1
-#douka 8
+put_src_to_hdfs >> submit_t1
+#douka 9
