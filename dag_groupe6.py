@@ -110,16 +110,16 @@ with dag:
 
     ls = BashOperator(
         task_id = "ls",
-        bash_command = "ls /root/airflow/dags/dag_nougatine/src_app/",
+        bash_command = "ls /root/airflow/dags/dag_nougatine/apispotify/",
     ) 
-    put_src_to_hdfs = BashOperator(
-        task_id = "put_src_to_hdfs",
-        bash_command = "hdfs dfs -moveFromLocal /root/airflow/dags/dag_nougatine/src_app/*.py /user/iabd2_group6/app/",
-    ) 
+    # put_src_to_hdfs = BashOperator(
+    #     task_id = "put_src_to_hdfs",
+    #     bash_command = "hdfs dfs -moveFromLocal /root/airflow/dags/dag_nougatine/src_app/*.py /user/iabd2_group6/app/",
+    # ) 
 
-    submit_t1 = BashOperator(
-        task_id = "submit_t1",
-        bash_command = "export HADOOP_CONF_DIR=/etc/hadoop/conf && export HADOOP_USER_NAME=iabd2_group6 && spark-submit --master yarn --deploy-mode cluster hdfs://d271ee89-3c06-4d40-b9d6-d3c1d65feb57.priv.instances.scw.cloud:8020/user/iabd2_group6/app/load_data_into_hive.py",
-    ) 
+    # submit_t1 = BashOperator(
+    #     task_id = "submit_t1",
+    #     bash_command = "export HADOOP_CONF_DIR=/etc/hadoop/conf && export HADOOP_USER_NAME=iabd2_group6 && spark-submit --master yarn --deploy-mode cluster hdfs://d271ee89-3c06-4d40-b9d6-d3c1d65feb57.priv.instances.scw.cloud:8020/user/iabd2_group6/app/load_data_into_hive.py",
+    # ) 
 
-ls >> put_src_to_hdfs >> submit_t1
+ls 
