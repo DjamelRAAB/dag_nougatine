@@ -44,10 +44,10 @@ with dag:
 #         }
 #     )
 
-#     clean = BashOperator(
-#         task_id = "clean",
-#         bash_command = "rm -rf /tmp/data_groupe6",
-#     )
+    clean = BashOperator(
+        task_id = "clean",
+        bash_command = "rm -rf /tmp/data_groupe6",
+    )
     
 #     mkdir_dist = BashOperator(
 #         task_id = "mkdir_dist",
@@ -81,3 +81,4 @@ with dag:
         task_id = "ls",
         bash_command = "ls /root/airflow/dags/dag_nougatine/src_app/",
     ) 
+
