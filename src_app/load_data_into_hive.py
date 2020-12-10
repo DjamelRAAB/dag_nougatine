@@ -1,4 +1,6 @@
 from pyspark.sql import SparkSession
+import pyspark.sql.functions as F
+import datetime 
 import sys
 
 def init_spark():
@@ -36,9 +38,10 @@ def load_csv_file(log,spark,name_file):
   except Exception as e :
     log.error("load de la table "+name_file+" ... KO")
     log.error("erreur : " + str(e))
+    sys.exit(1)
   return df
 
-def save_in_hive (log,spark,dataFrame,name_table) :
+def save_in_hive (log,spark,dataFrame,name_table,date) :
   # save a dataframe into a hive table 
   """ 
   log : Logger spark
@@ -46,21 +49,23 @@ def save_in_hive (log,spark,dataFrame,name_table) :
   dataFrame : Dataframe
   """
   try :
-    dataFrame.write.saveAsTable('iabd2_group6.'+name_table)
+    dataFrame.withColumn("date",F.lit(date)).write.saveAsTable('iabd2_group6.'+name_table)
     log.info("save de la table "+name_table+" ... OK")
   except Exception as e :
     log.error("save de la table "+name_table+" ... KO")
     log.error("erreur : " + str(e))
+    sys.exit(1)
 
 
 
 def main():
   spark,sc = init_spark()
   log  = init_logger(sc)
+  date=datetime.date.today().strftime("%Y%m%d")
   list_name = ["albums_releases_full","artists_releases_full","tracks_featured_full","tracks_releases_full","playlists_featured_full","artists_featured_full"]
   for name in list_name :
-        exec('df_'+ name +' = load_csv_file(log,spark,"/user/iabd2_group6/df_'+name+'.csv")')
-        exec('save_in_hive(log,spark,df_'+ name +' ,"tb_'+name+'" )')
+        exec('df_'+ name +' = load_csv_file(log,spark,"/user/iabd2_group6/data/'+date+'/df_'+name+'.csv")')
+        exec('save_in_hive(log,spark,df_'+ name +' ,"tb_'+name+'",date )')
   
 if __name__ == '__main__':
   main()
