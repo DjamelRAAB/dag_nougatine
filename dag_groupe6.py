@@ -110,7 +110,7 @@ with dag:
 
     ls = BashOperator(
         task_id = "ls",
-        bash_command = "ls /root/airflow/dags/dag_nougatine/apispotify/",
+        bash_command = "ls /root/airflow/dags/dag_nougatine/src_app/",
     ) 
     # put_src_to_hdfs = BashOperator(
     #     task_id = "put_src_to_hdfs",
