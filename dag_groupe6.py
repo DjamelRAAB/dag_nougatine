@@ -60,7 +60,7 @@ with dag:
 
     put_src_to_hdfs = BashOperator(
         task_id = "put_src_to_hdfs",
-        bash_command = "hdfs dfs -moveFromLocal /root/airflow/dags/dag_nougatine/src_app/*.py /user/iabd2_group6/app/",
+        bash_command = "hdfs dfs -rm -R -skipTrash /user/iabd2_group6/app/*.py && hdfs dfs -moveFromLocal /root/airflow/dags/dag_nougatine/src_app/*.py /user/iabd2_group6/app/",
     ) 
 
     submit_t1 = BashOperator(
