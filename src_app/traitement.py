@@ -45,7 +45,8 @@ def save_in_hive (log,spark,dataFrame,name_table) :
 
 def get_top_artist_from_top_playlist(log,tb_artists_releases_full):
     try :
-        df = tb_artists_releases_full.select("name","followers","popularity","date").withColumn("followers",F.lit(int(re.search(r'\d+', str(F.col("followers"))).group())))
+        df = tb_artists_releases_full.select("name","followers","popularity","date")
+        # withColumn("followers",F.lit(int(str(re.findall(r'\d+', str(F.col("followers")))))))
         log.info("get_top_artist_from_top_playlist .. ok")
     except Exception as e:
         log.error("get_top_artist_from_top_playlist ... KO")
