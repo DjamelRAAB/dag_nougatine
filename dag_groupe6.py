@@ -21,7 +21,7 @@ default_args = {
 # Create dag
 dag = DAG ( 'dag_groupe6',
             default_args=default_args, 
-            schedule_interval='45 12 * * *'
+            schedule_interval='0 7 * * *'
             )
 
 with dag:
@@ -53,10 +53,6 @@ with dag:
         task_id = "put_data_to_hdfs",
         bash_command = "hdfs dfs -moveFromLocal /tmp/data_groupe6/*.csv /user/iabd2_group6/data/{}".format(current_time),
     ) 
-    rm_dist = BashOperator(
-        task_id = "rm_dist",
-        bash_command = "hdfs dfs -rm -R -skipTrash /user/iabd2_group6/data/{}".format(current_time),
-    ) 
 
     put_src_to_hdfs = BashOperator(
         task_id = "put_src_to_hdfs",
@@ -68,6 +64,6 @@ with dag:
         bash_command = "export HADOOP_CONF_DIR=/etc/hadoop/conf && export HADOOP_USER_NAME=iabd2_group6 && spark-submit --master yarn --deploy-mode cluster hdfs://d271ee89-3c06-4d40-b9d6-d3c1d65feb57.priv.instances.scw.cloud:8020/user/iabd2_group6/app/load_data_into_hive.py",
     ) 
 
-rm_dist >> install >> get_data >> mkdir_dist >> put_data_to_hdfs >> [put_src_to_hdfs, clean] >> submit_t1 
+install >> get_data >> mkdir_dist >> put_data_to_hdfs >> [put_src_to_hdfs, clean] >> submit_t1 
 
 
