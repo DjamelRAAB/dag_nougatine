@@ -77,4 +77,4 @@ with dag:
 # [install, mkdir] >> get_data >> mkdir_dist >> [put_data_to_hdfs, put_src_to_hdfs] >> clean >> submit_t1 
 
 submit_t1
-#douka 7
+#douka 8

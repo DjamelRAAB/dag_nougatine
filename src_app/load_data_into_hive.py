@@ -58,7 +58,7 @@ def save_in_hive (log,spark,dataFrame,name_table,date) :
 
 def get_top_artist_from_top_playlist(log,df_artists_releases_full):
     try :
-        df = df_artists_releases_full.select("name","followers","popularity","date")
+        df = df_artists_releases_full.select("name","followers","popularity")
         # withColumn("followers",F.lit(int(str(re.findall(r'\d+', str(F.col("followers")))))))
         log.info("get_top_artist_from_top_playlist .. ok")
     except Exception as e:
@@ -76,11 +76,11 @@ def main():
   for name in list_name :
         exec('df_'+ name +' = load_csv_file(log,spark,"/user/iabd2_group6/data/'+date+'/df_'+name+'.csv")')
         # exec('save_in_hive(log,spark,df_'+ name +' ,"tb_'+name+'_v1",date )')
-  df_artist_up = get_top_artist_from_top_playlist(log,df_artists_releases_full).coalesce()
-  df_artist_already_up = get_top_artist_from_top_playlist(log,df_artists_featured_full).coalesce()
+  df_artist_up = get_top_artist_from_top_playlist(log,df_artists_releases_full).coalesce(1)
+  df_artist_already_up = get_top_artist_from_top_playlist(log,df_artists_featured_full).coalesce(1)
 
-  # df_artist_up.write.csv('hdfs://d271ee89-3c06-4d40-b9d6-d3c1d65feb57.priv.instances.scw.cloud:8020/user/iabd2_group6/df_artist_up.csv')
-  # df_artist_already_up.write.csv('hdfs://d271ee89-3c06-4d40-b9d6-d3c1d65feb57.priv.instances.scw.cloud:8020/user/iabd2_group6/f_artist_already_up.csv')
+  df_artist_up.write.csv('hdfs://d271ee89-3c06-4d40-b9d6-d3c1d65feb57.priv.instances.scw.cloud:8020/user/iabd2_group6/df_artist_up.csv')
+  df_artist_already_up.write.csv('hdfs://d271ee89-3c06-4d40-b9d6-d3c1d65feb57.priv.instances.scw.cloud:8020/user/iabd2_group6/df_artist_already_up.csv')
 
 
 if __name__ == '__main__':
