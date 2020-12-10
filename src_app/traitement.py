@@ -66,4 +66,3 @@ def main():
 
 if __name__ == '__main__':
   main()
-/dag_nougatine/src_app/traitement.py
